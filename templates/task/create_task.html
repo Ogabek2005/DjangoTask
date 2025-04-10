@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Create Task
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-lg rounded-4">
+                <div class="card-header bg-primary text-white text-center rounded-top-4">
+                    <h3 class="mb-0">Create a New Task</h3>
+                </div>
+                <div class="card-body p-4">
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Task Name</label>
+                            <input type="text" class="form-control" name="name" id="name" placeholder="Enter Task name">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Status</label>
+                            <select class="form-select" name="status" id="status">
+                                <option value="Todo">Todo</option>
+                                <option value="Processing">Processing</option>
+                                <option value="Done">Done</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="created_by" class="form-label">Created By</label>
+                            <select class="form-select" name="created_by" id="created_by">
+                                {% for user in users %}
+                                    <option value="{{ user.id }}">{{ user.username }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success">Create Task</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

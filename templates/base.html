@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Tasks App{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{% url 'tasks' %}">📚 BookZone</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarContent" aria-controls="navbarContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <!-- Book Links -->
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'tasks' %}active{% endif %}"
+                       href="{% url 'tasks' %}">Task List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'task_create' %}active{% endif %}"
+                       href="{% url 'task_create' %}">Add Task</a>
+                </li>
+
+                {#                <!-- Auth Buttons -->#}
+                {#                {% if user.is_authenticated %}#}
+                {#                    <li class="nav-item d-flex align-items-center text-white ms-3">#}
+                {#                        👋 {{ user.username }}#}
+                {#                    </li>#}
+                {#                    <li class="nav-item">#}
+                {#                        <a class="btn btn-outline-light btn-sm ms-2" href="{% url 'accounts:logout' %}">Logout</a>#}
+                {#                    </li>#}
+                {#                {% else %}#}
+                {#                    <li class="nav-item">#}
+                {#                        <a class="btn btn-outline-light btn-sm ms-2" href="{% url 'accounts:login' %}">Login</a>#}
+                {#                    </li>#}
+                {#                    <li class="nav-item">#}
+                {#                        <a class="btn btn-light btn-sm ms-2" href="{% url 'accounts:register' %}">Register</a>#}
+                {#                    </li>#}
+                {#                {% endif %}#}
+                {#            </ul>#}
+
+                <!-- Search Form -->
+                <form class="d-flex ms-3">
+                    <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
+                    <button class="btn btn-outline-light" type="submit">Search</button>
+                </form>
+        </div>
+    </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="flex-grow-1 py-5">
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-light text-center text-muted py-4 mt-auto border-top">
+    <div class="container">
+        <p class="mb-1">&copy; 2025 BookZone. Barcha huquqlar himoyalangan.</p>
+        <p class="mb-0">
+            <a href="#" class="text-decoration-none me-3">Maxfiylik siyosati</a>
+            <a href="#" class="text-decoration-none me-3">Foydalanish shartlari</a>
+            <a href="#" class="text-decoration-none">Bog'lanish</a>
+        </p>
+    </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+</body>
+</html>
